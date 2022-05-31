@@ -1,0 +1,50 @@
+# Question 7-10) n개의 페어를 이용한 min(a, b)의 합으로 만들 수 있는 가장 큰 수를 출력하라.
+
+# 입력
+'''
+nums = [1, 4, 3, 2]
+'''
+
+# 출력 >> n은 2가 되며, 최대 합은 4이다.
+
+'''
+4
+'''
+
+# 풀이1. 오름차순 풀이
+
+# min(a, b)을 합산했을 때 최대(Argmax)를 만드는 것은 결국 **min()이 되도록 커야한다** 뒤에서 내림차순(Descending Order)으로 집어넣으면 항상 최대 min(a,b) 페어를 유지할 수 있다. 이 문제에서 배열 입력값은 항상 2n개일 것이므로 앞에서부터 오름차순(Asceding Order)으로 집어넣어도 결과는 같다.
+
+def arrayPairSum1(nums):
+    sum = 0
+    pair = []
+    nums.sort()
+
+    for n in nums:
+        # 앞에서부터 오름차순으로 페어를 만들어서 합 계산.
+        pair.append(n)
+        if len(pair) == 2:
+            sum += min(pair)
+            pair = []
+
+    return sum
+    
+# 풀이2. 짝수 번째 값 계산
+    
+# 풀이1 처럼 일일이 min()값 구하지 않아도 **짝수 번째 값(인덱스는 0부터 시작하므로)을 더하면 된다.** 불필요한 리스트 변수를 생략할 수 있기 때문에, 전체 코드 또한 간결해진다.
+    
+def arrayPairSum2(nums):
+    sum = 0
+    nums.sort()
+
+    for i, n in enumerate(nums):
+        # 짝수 번째 값의 합 계산
+        if i % 2 == 0:
+            sum += n 
+
+    return sum
+    
+# 풀이3. 슬라이싱 활용
+    
+def arrayPairSum3(nums):
+    return sum(sorted(nums)[::2])
